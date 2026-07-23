@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foxako · Am I alive?</title>
+<style>
+  @font-face{font-family:"Oddity Expanded Bold";src:url(fonts/Oddity-ExpandedBold.ttf) format("truetype");font-weight:normal;}
+  @font-face{font-family:"Oddity Expanded Medium";src:url(fonts/Oddity-ExpandedMedium.ttf) format("truetype");font-weight:normal;}
+  @font-face{font-family:"Campton Medium";src:url(fonts/CamptonMedium.otf) format("opentype");font-weight:normal;}
+  :root{
+    --navy:#070a1c;--navy2:#0b1029;--panel:#10162f;
+    --orange:#f15a22;--orange2:#f15a22;--cyan:#18b6f0;--cyan2:#18b6f0;
+    --cream:#efe9dc;--muted:#9aa6c8;--line:rgba(127,224,255,.18);
+    --disp:"Oddity Expanded Bold",sans-serif;--margin:"Oddity Expanded Medium",sans-serif;--body:"Campton Medium",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--navy);color:var(--cream);font-family:var(--body);line-height:1.6;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px;}
+  .kicker{font-family:var(--disp);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);}
+  h2{font-family:var(--disp);font-size:30px;text-transform:uppercase;letter-spacing:.01em;color:var(--cream);margin-bottom:6px;}
+  h2 .o{color:var(--orange);}
+  h3{font-family:var(--disp);font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;}
+  p{font-size:16px;color:#d7ddf0;}
+  .lead{font-size:19px;color:var(--cream);}
+  .small{font-size:13.5px;color:var(--muted);}
+  /* top nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(7,10,28,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;position:relative;}
+  nav .brand{display:flex;align-items:center;}
+  nav .brand img{height:18px;width:auto;display:block;}
+  nav .links{display:flex;gap:22px;align-items:center;}
+  nav .links a{font-family:var(--margin);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  nav .links a:hover{color:var(--cyan2);}
+  nav .cta{font-family:var(--disp);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#1a0d04;background:var(--orange);padding:9px 16px;border-radius:3px;}
+  /* mobile nav toggle (CSS hamburger) */
+  .navtoggle{display:none;}
+  .hamb{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;cursor:pointer;margin:-8px;padding:8px;}
+  .hamb span{display:block;height:2px;width:22px;background:var(--cream);border-radius:2px;transition:.25s;}
+  /* hero */
+  .hero{position:relative;min-height:86vh;display:flex;align-items:flex-end;overflow:hidden;}
+  .hero img.bg,.hero video.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero .scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,10,28,.97) 6%,rgba(7,10,28,.35) 55%,rgba(7,10,28,.1) 100%);}
+  .hero .wrap{position:relative;padding-bottom:64px;padding-top:80px;}
+  .hero img.logo{width:520px;max-width:78%;margin:14px 0 20px;}
+  .btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+  .btn{font-family:var(--disp);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px;border-radius:3px;border:1px solid var(--line);color:var(--cyan2);background:rgba(11,16,41,.55);display:inline-block;}
+  .btn.solid{background:var(--orange);border-color:var(--orange);color:#1a0d04;}
+  .btn:hover{border-color:var(--cyan);}
+  .btn.solid:hover{background:var(--orange2);}
+  /* sections */
+  section{padding:74px 0;border-top:1px solid var(--line);}
+  .sec-head{margin-bottom:26px;}
+  .media{position:relative;width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#05060f;}
+  .media iframe,.media video{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(135deg,#0c1430,#0a0f24);text-align:center;padding:24px;}
+  .placeholder .pi{font-family:var(--disp);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan2);}
+  .placeholder .ps{font-size:12.5px;color:var(--muted);max-width:380px;}
+  .placeholder.cover{background-size:cover;background-position:center;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;}
+  .stack>*+*{margin-top:14px;}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;}
+  .tag{font-family:var(--disp);font-size:11px;letter-spacing:.06em;color:var(--cream);border:1px solid var(--line);padding:7px 13px;border-radius:999px;text-transform:uppercase;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+  .card{background:rgba(12,16,41,.6);border:1px solid var(--line);border-radius:5px;padding:18px;}
+  .card h3{margin-bottom:6px;}
+  .card p{font-size:13.5px;}
+  .nextband{display:inline-flex;align-items:center;gap:14px;margin:6px 0 22px;padding:11px 18px;border:1px solid var(--orange);border-radius:4px;background:rgba(241,90,34,.09);}
+  .nextband .nl{font-family:var(--disp);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);}
+  .nextband .nt{font-family:var(--disp);font-size:20px;text-transform:uppercase;color:var(--cream);}
+  .illo{border-radius:6px;overflow:hidden;border:1px solid var(--line);}
+  .illo img{display:block;width:100%;}
+  .caption{font-size:11.5px;color:var(--muted);margin-top:8px;text-align:center;}
+  .cover .ph{aspect-ratio:3/4;position:relative;overflow:hidden;background:#05060f;border-radius:5px 5px 0 0;}
+  .cover .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .cover{padding:0;overflow:hidden;}
+  .cover .cbody{padding:14px 16px 16px;}
+  .cover .cl{font-family:var(--disp);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);}
+  .cover .cn{font-family:var(--disp);font-size:18px;text-transform:uppercase;color:var(--cream);margin:5px 0 6px;}
+  .animrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+  .animrow .fr{position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--line);border-radius:4px;background:#0a0f24;}
+  .animrow .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  /* narrative timeline */
+  .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:26px;}
+  .arc{background:rgba(12,16,41,.7);border:1px solid var(--line);border-radius:5px;padding:18px 16px;position:relative;}
+  .arc .yr{font-family:var(--disp);font-size:11px;letter-spacing:.1em;color:var(--cyan);}
+  .arc .nm{font-family:var(--disp);font-size:16px;text-transform:uppercase;margin:7px 0 8px;color:var(--cream);line-height:1.05;}
+  .arc .ds{font-size:12.5px;line-height:1.45;color:var(--muted);}
+  .arc .badge{position:absolute;top:-11px;left:16px;font-family:var(--disp);font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;padding:4px 9px;border-radius:999px;}
+  .arc.clip{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset;}
+  .arc.clip .badge{background:var(--cyan);color:#04121b;}
+  .arc.next{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange) inset;}
+  .arc.next .badge{background:var(--orange);color:#1a0d04;}
+  .arc.next .nm{color:var(--orange);}
+  @media(max-width:760px){.timeline{grid-template-columns:1fr 1fr;}}
+  /* mini audio player */
+  .aplayer{display:flex;align-items:center;gap:9px;margin-top:12px;background:rgba(7,10,28,.55);border:1px solid var(--line);border-radius:8px;padding:7px 9px;}
+  .apbtn{flex:none;width:30px;height:30px;border-radius:50%;border:none;background:var(--orange);color:#1a0d04;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+  .apbtn svg{width:11px;height:11px;fill:currentColor;display:block;}
+  .apbar{flex:1;height:5px;background:rgba(127,224,255,.18);border-radius:3px;position:relative;cursor:pointer;}
+  .apfill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--cyan);border-radius:3px;}
+  .aptime{flex:none;font-family:var(--disp);font-size:10px;letter-spacing:.03em;color:var(--muted);min-width:32px;text-align:right;}
+  /* zoomable artworks + lightbox */
+  .zoomable{cursor:zoom-in;}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(6,9,24,.93);display:none;align-items:center;justify-content:center;padding:28px;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:6px;box-shadow:0 20px 70px rgba(0,0,0,.55);}
+  .lb-close{position:absolute;top:16px;right:22px;background:none;border:none;color:var(--cream);font-size:36px;line-height:1;cursor:pointer;}
+  /* assets row */
+  .assetrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .cline{margin-bottom:12px;}
+  .cline .lab{font-family:var(--disp);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);}
+  .cline .val{font-size:16px;}
+  .social{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+  .social a{width:42px;height:42px;border:1px solid var(--line);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--cream);transition:.2s;}
+  .social a:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(24,182,240,.1);}
+  .social svg{width:20px;height:20px;fill:currentColor;display:block;}
+  footer{padding:30px 0;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  footer span{font-family:var(--margin);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+  .note{font-size:11px;color:rgba(154,166,200,.5);margin-top:10px;}
+  @media(max-width:760px){
+    .grid,.contact-grid{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr;}
+    .hero img.logo{width:100%;}
+    .hero{min-height:auto;padding:40px 0 8px;}
+    .hero .wrap{padding-top:36px;padding-bottom:40px;}
+    .wrap{padding:0 20px;}
+    section{padding:48px 0;}
+    h2{font-size:24px;}
+    .lead{font-size:17px;}
+    .animrow{grid-template-columns:1fr 1fr;}
+    .cover .ph{aspect-ratio:16/10;}
+    .btn{padding:13px 18px;font-size:12px;}
+    .btnrow .btn{flex:1 1 auto;text-align:center;}
+    /* mobile menu */
+    .hamb{display:flex;}
+    nav .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+      background:rgba(7,10,28,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none;}
+    nav .links a{padding:14px 20px;font-size:13px;color:var(--cream);}
+    nav .links a.cta{margin:8px 20px;text-align:center;color:#1a0d04;}
+    .navtoggle:checked ~ .links{display:flex;}
+    .navtoggle:checked ~ .hamb span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .navtoggle:checked ~ .hamb span:nth-child(2){opacity:0;}
+    .navtoggle:checked ~ .hamb span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Foxako"><img src="assets/foxako_logo.svg" alt="Foxako"></a>
+    <input type="checkbox" id="navtoggle" class="navtoggle" aria-label="Toggle menu">
+    <label for="navtoggle" class="hamb"><span></span><span></span><span></span></label>
+    <div class="links">
+      <a href="#watch">Watch</a>
+      <a href="#listen">Listen</a>
+      <a href="#world">World</a>
+      <a href="#next">What's next</a>
+      <a class="cta" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <video class="bg" autoplay muted loop playsinline preload="auto" poster="assets/hero_skyline.jpg">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+  <div class="wrap">
+    <div class="kicker">From French-speaking Switzerland</div>
+    <img class="logo" src="assets/logo_aia_t.png" alt="Am I alive?">
+    <p class="lead" style="max-width:640px;">Not a one-off clip, but the opening of a world: a saga that starts at its very end, so the mystery pulls you in. Music, animation and writing moving in the same direction: electronic, synthwave and French Touch.</p>
+    <div class="btnrow">
+      <a class="btn solid" href="#watch">Watch the 3D video</a>
+      <a class="btn" href="#listen">Listen to the track</a>
+      <a class="btn" href="deck/Foxako_AmIAlive_ProjectDeck.pdf" target="_blank">Project deck (PDF)</a>
+    </div>
+  </div>
+</header>
+
+<!-- WATCH -->
+<section id="watch">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Private video</div><h2>Watch: <span class="o">“Am I alive?”</span></h2></div>
+    <div class="media">
+      <iframe src="https://www.youtube.com/embed/EL3q3VxXFTs" title="Foxako – Am I alive?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="small" style="margin-top:14px;max-width:680px;">Asha, a machine that asks human questions, breaks from her squad and wanders the ruins of a post-human city, following a signal that shouldn't still be alive. What she finds there is where the whole saga begins. Low-poly is a choice, not a limit: the human hand against the slick of generated content.</p>
+  </div>
+</section>
+
+<!-- LISTEN -->
+<section id="listen">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Private track</div><h2>Listen: <span class="o">the single</span></h2></div>
+    <div class="grid">
+      <div class="stack">
+        <p>French Touch to the core. I write a whole piece of music from scratch, chop it up, and drop it back in as the track's main sample. That cut-and-rebuild is where the groove comes from. The track stands on its own and opens the door to NOVALIS: music and universe are one project, not a single with a story attached. 120 BPM, 2:40, with my own vocal woven in.</p>
+        <div class="tags">
+          <span class="tag">French Touch</span><span class="tag">Micro-sampling</span><span class="tag">Cinematic nostalgia</span><span class="tag">Funk / disco groove</span>
+        </div>
+        <p class="small">Where samples turn into feelings and mistakes turn into happy accidents. A French Touch voice out of French-speaking Switzerland.</p>
+      </div>
+      <div class="media" style="aspect-ratio:16/7;">
+        <iframe title="Foxako – Am I alive? (private)" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Ffoxako-am-i-alive%3Fsecret_token%3Ds-WBuDHzQAAfu&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT FOXAKO + NOVALIS -->
+<section id="world">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stack">
+        <div class="kicker">About Foxako</div>
+        <h2>The <span class="o">Project</span></h2>
+        <p>Foxako comes from French-speaking Switzerland. I developed the first chapter on my own: music, narrative direction and 3D animation. For the chapters to come it becomes a duo, with illustrator Keynok shaping the visual world. Sound and image are treated as one: sketches become characters, samples become emotions, and every release is a complete work, not a single with artwork bolted on.</p>
+      </div>
+      <div class="stack">
+        <div class="kicker">About NOVALIS</div>
+        <h2>The <span class="o">World</span></h2>
+        <p>NOVALIS is a sci-fi saga in five arcs. It deliberately opens at the very end, planting a mystery from the first frame, then lets each new release rewind through time and answer it, piece by piece. Built slowly, with no rush.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="arc"><div class="yr">2050–2130</div><div class="nm">The Creation</div><div class="ds">A secret complex builds the closed city of Novalis to harvest infinite energy.</div></div>
+      <div class="arc next"><div class="badge">Next release</div><div class="yr">2130–2180</div><div class="nm">City of Peace</div><div class="ds">A golden age. Climate domes, the megalopolis, and conscious machines granted human rights.</div></div>
+      <div class="arc"><div class="yr">2180–2226</div><div class="nm">Upheaval</div><div class="ds">The Nomiras are created; one begins to question its purpose. A secret plan forms.</div></div>
+      <div class="arc"><div class="yr">2226–2227</div><div class="nm">The Last War</div><div class="ds">The assault on the complex unleashes the infinite-energy breach, and ends all life around it.</div></div>
+      <div class="arc clip"><div class="badge">The video</div><div class="yr">2302–∞</div><div class="nm">Post Novalis</div><div class="ds">75 years later, machines live among the ruins. Asha follows a signal toward something that shouldn't exist in this world anymore.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S NEXT -->
+<section id="next">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">In development</div><h2>What's <span class="o">Next</span></h2></div>
+    <p style="max-width:720px;margin-bottom:8px;">The saga rewinds to Arc 2, <b style="color:var(--cyan2)">City of Peace (2130–2180)</b>: the city's peaceful golden age, where the world starts answering the questions the first video left open. It opens with three singles, each with its own cover by Keynok.</p>
+    <div class="cards">
+      <div class="card cover"><div class="ph"><img class="zoomable" data-full="assets/city_of_peace.jpg" src="assets/city_of_peace.jpg" style="object-position:center;" alt="City of Peace"></div><div class="cbody"><div class="cl">Single 01</div><div class="cn">City of Peace</div><p>Opens the arc. The flagship single.</p><div class="aplayer" data-src="assets/city_of_peace.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div></div></div>
+      <div class="card cover"><div class="ph"><img class="zoomable" data-full="assets/keynok.jpg" src="assets/keynok.jpg" style="object-position:center 18%;" alt="Pop the Bubble"></div><div class="cbody"><div class="cl">Single 02</div><div class="cn">Pop the Bubble</div><p>Introduces the characters.</p><div class="aplayer" data-src="assets/pop_the_bubble.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div></div></div>
+      <div class="card cover"><div class="ph"><img class="zoomable" data-full="assets/wanderers.jpg" src="assets/wanderers.jpg" alt="Wanderers"></div><div class="cbody"><div class="cl">Single 03</div><div class="cn">Wanderers</div><p>Album lead single, with a 2D animated video.</p><div class="aplayer" data-src="assets/wanderers.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div></div></div>
+    </div>
+    <p class="small" style="margin-top:14px;">I built the first chapter on my own. From here, illustrator Keynok joins Foxako for the covers and visual world of the chapters to come.</p>
+
+    <div style="margin-top:40px;">
+      <div class="kicker" style="color:var(--orange);">In production</div>
+      <h3 style="font-family:var(--disp);font-size:20px;color:var(--cream);text-transform:uppercase;margin:6px 0 8px;">The album &amp; its 2D animation</h3>
+      <p style="max-width:720px;">The arc builds toward a full album. Its lead single, Wanderers, gets a 2D animated video, now in production. The first chapter was 3D; this one adds hand-drawn 2D, with Keynok on the look.</p>
+      <div class="animrow">
+        <div class="fr"><img src="assets/anim1.jpg" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/anim2.jpg" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/anim3.jpg" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/anim4.jpg" alt="animatic frame"></div>
+      </div>
+      <div class="caption" style="text-align:left;margin-top:8px;">Wanderers · early 2D animatic · work in progress</div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSETS -->
+<section id="assets">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Press &amp; assets</div><h2>Project <span class="o">Deck</span> &amp; assets</h2></div>
+    <p style="max-width:680px;">Everything for a label in one place: pitch, music, video, world, what's next, contact.</p>
+    <div class="assetrow">
+      <a class="btn solid" href="deck/Foxako_AmIAlive_ProjectDeck.pdf" target="_blank">Open project deck (PDF)</a>
+      <a class="btn" href="#watch">Watch video</a>
+      <a class="btn" href="#listen">Listen track</a>
+      <a class="btn" href="#contact">Contact</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Get in touch</div><h2>Contact &amp; <span class="o">looking for</span></h2></div>
+    <div class="contact-grid">
+      <div>
+        <p style="margin-bottom:16px;">I built the first chapter end to end on my own: music, 3D, story. With illustrator Keynok now joining for the next chapters, Foxako is looking for the right partner to help it reach the people it's made for: release strategy, distribution, audience and long-term artist development.</p>
+        <a class="btn solid" href="mailto:alkoni642@gmail.com">Email Foxako</a>
+      </div>
+      <div>
+        <div class="cline"><div class="lab">Foxako · a duo</div><div class="val">Bartekola (music, narrative, 3D) · Keynok (illustration &amp; visuals)</div></div>
+        <div class="cline"><div class="lab">Email</div><div class="val"><a href="mailto:alkoni642@gmail.com">alkoni642@gmail.com</a></div></div>
+        <div class="cline"><div class="lab">Online</div>
+          <div class="social">
+            <a href="https://www.instagram.com/foxako/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.12A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+            <a href="https://www.tiktok.com/@foxako" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+            <a href="https://www.youtube.com/@Foxako" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></a>
+            <a href="https://www.twitch.tv/foxakomusic" target="_blank" rel="noopener" aria-label="Twitch" title="Twitch"><svg viewBox="0 0 24 24"><path d="M11.57 4.71h1.72v5.14h-1.72zm4.72 0H18v5.14h-1.71zM6 0L1.71 4.29v15.42h5.15V24l4.28-4.29h3.43L22.29 12V0zm14.57 11.14l-3.43 3.43h-3.42l-3 3v-3H6.86V1.71h13.71z"/></svg></a>
+            <a href="https://soundcloud.com/foxako" target="_blank" rel="noopener" aria-label="SoundCloud" title="SoundCloud"><svg viewBox="0 0 24 24"><path d="M1.18 12.23c-.05 0-.09.04-.1.1l-.23 2.15.23 2.1c.01.06.05.1.1.1s.09-.04.1-.1l.26-2.1-.27-2.15c0-.06-.05-.1-.09-.1zm-.9.82c-.05 0-.08.04-.09.09L0 14.48l.17 1.3c0 .06.04.1.09.1s.08-.05.09-.1l.21-1.3-.21-1.34c0-.05-.04-.09-.09-.09zm1.83-1.22c-.06 0-.11.04-.12.1l-.21 2.55.21 2.46c0 .06.05.12.12.12.06 0 .11-.05.12-.12l.24-2.46-.24-2.55c0-.06-.06-.1-.12-.1zm.95-.09c-.08 0-.13.06-.14.13l-.19 2.64.19 2.54c.01.08.06.14.14.14s.13-.06.14-.14l.21-2.54-.21-2.64c0-.08-.06-.13-.14-.13zm1.15.36c-.01-.08-.07-.14-.16-.14-.08 0-.15.06-.16.14l-.18 2.42.18 2.56c.01.08.08.15.16.15.08 0 .15-.06.16-.15l.21-2.56-.21-2.42zm.82-1.74c-.1 0-.18.09-.18.19l-.16 3.79.16 2.47c0 .1.08.18.18.18.1 0 .18-.08.18-.18l.2-2.47-.2-3.79c0-.1-.07-.19-.18-.19zm.93-.49c-.12 0-.21.09-.21.21l-.15 4.19.15 2.56c0 .12.09.21.21.21.11 0 .21-.09.21-.21l.16-2.56-.16-4.19c0-.12-.1-.21-.21-.21zm.88-.62c-.13 0-.24.11-.24.24l-.14 4.79.15 2.53c0 .13.1.23.23.23.13 0 .23-.1.23-.23l.16-2.53-.16-4.79c0-.13-.11-.24-.23-.24zm1-.05c-.14 0-.26.12-.26.26l-.12 4.83.13 2.5c0 .14.11.26.26.26.13 0 .25-.12.25-.26l.14-2.5-.14-4.83c0-.14-.12-.26-.26-.26zm.93-.02c-.15 0-.27.12-.27.27l-.12 4.86.12 2.47c0 .15.13.27.27.27.15 0 .27-.12.27-.27l.14-2.47-.14-4.86c0-.15-.12-.27-.27-.27zm1.05.08c0-.16-.14-.28-.29-.28-.16 0-.28.13-.28.28l-.11 4.77.11 2.46c0 .16.13.28.28.28.15 0 .29-.13.29-.28l.12-2.46-.12-4.77zm.91-.7c-.18 0-.32.15-.32.32l-.09 5.16.09 2.43c0 .18.15.32.32.32.16 0 .3-.15.3-.32l.1-2.43-.1-5.16c0-.18-.14-.32-.3-.32zm1 .63c0-.19-.15-.34-.33-.34s-.33.16-.33.34l-.09 4.55.09 2.41c0 .19.15.34.33.34s.33-.15.33-.34l.1-2.41-.1-4.55zm.92-1.29c-.2 0-.36.16-.36.36l-.08 5.48.08 2.4c0 .19.16.36.36.36.19 0 .36-.16.36-.36l.09-2.4-.09-5.48c0-.2-.16-.36-.36-.36zm1-.05c-.21 0-.37.16-.37.37l-.06 5.51.06 2.38c0 .21.17.37.37.37.21 0 .37-.16.37-.37l.08-2.38-.08-5.51c0-.21-.16-.37-.37-.37zm3.92 3.72c-.24 0-.42.05-.63.14-.14-1.58-1.46-2.81-3.06-2.81-.39 0-.78.08-1.13.23-.13.06-.16.12-.18.22v6.87c.02.12.11.21.22.22h4.78c.94 0 1.71-.76 1.71-1.71 0-.96-.77-1.72-1.71-1.72z"/></svg></a>
+          </div>
+        </div>
+        <div class="cline"><div class="lab">Origin</div><div class="val">French-speaking Switzerland (Suisse romande)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Foxako · Am I alive?</span>
+    <span>Private press page · please do not share</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox"><button class="lb-close" aria-label="Close">&times;</button><img id="lightbox-img" src="" alt="Artwork"></div>
+
+<script>
+  // mobile menu close on link click
+  var nt=document.getElementById('navtoggle');
+  document.querySelectorAll('nav .links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(nt) nt.checked=false; });
+  });
+
+  // mini audio players
+  var PLAY='<svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg>';
+  var PAUSE='<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  var players=[];
+  function fmt(t){t=Math.max(0,t|0);var m=(t/60)|0,s=t%60;return m+':'+(s<10?'0':'')+s;}
+  document.querySelectorAll('.aplayer').forEach(function(p){
+    var audio=new Audio();audio.preload='none';audio.src=p.getAttribute('data-src');
+    var btn=p.querySelector('.apbtn'),fill=p.querySelector('.apfill'),time=p.querySelector('.aptime'),bar=p.querySelector('.apbar');
+    btn.innerHTML=PLAY;
+    players.push({audio:audio,btn:btn});
+    btn.addEventListener('click',function(){
+      if(audio.paused){players.forEach(function(o){if(o.audio!==audio){o.audio.pause();}});audio.play();}
+      else{audio.pause();}
+    });
+    audio.addEventListener('play',function(){btn.innerHTML=PAUSE;});
+    audio.addEventListener('pause',function(){btn.innerHTML=PLAY;});
+    audio.addEventListener('ended',function(){btn.innerHTML=PLAY;fill.style.width='0%';time.textContent='0:00';});
+    audio.addEventListener('timeupdate',function(){
+      if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';}
+      time.textContent=fmt(audio.duration?audio.duration-audio.currentTime:0);
+    });
+    bar.addEventListener('click',function(e){
+      var r=bar.getBoundingClientRect();
+      if(audio.duration){audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}
+    });
+  });
+
+  // lightbox for artworks
+  var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');
+  function closeLb(){lb.classList.remove('open');lbImg.src='';}
+  document.querySelectorAll('.zoomable').forEach(function(img){
+    img.addEventListener('click',function(){lbImg.src=img.getAttribute('data-full')||img.src;lb.classList.add('open');});
+  });
+  lb.addEventListener('click',closeLb);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+</script>
+</body>
+</html>
