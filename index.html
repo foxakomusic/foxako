@@ -75,6 +75,7 @@
   .imgrow .fr{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);border-radius:5px;background:#0a0f24;}
   .imgrow .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .imgrow.bts .fr{aspect-ratio:3/4;}
+  .imgrow.bts .fr .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;pointer-events:none;padding:10px 11px 9px;font-family:var(--disp);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);background:linear-gradient(0deg,rgba(6,9,22,.92) 20%,rgba(6,9,22,.15) 75%,transparent);}
   /* callout / details */
   .callout{border:1px solid var(--line);border-radius:6px;padding:18px 20px;background:rgba(12,16,41,.5);margin-top:20px;}
   .callout.orange{border-color:var(--orange);background:rgba(241,90,34,.07);}
@@ -116,21 +117,22 @@
   .caption{font-size:11.5px;color:var(--muted);margin-top:8px;}
   /* narrative timeline */
   .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px;}
-  .arc{background:rgba(12,16,41,.7);border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative;}
-  .arc .thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0a0f24;}
+  .arc{background:rgba(12,16,41,.7);border:1px solid var(--line);border-radius:8px;overflow:visible;position:relative;}
+  .arc .thumb{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0a0f24;}
   .arc .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;}
+  .arc .thumb:after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(0deg,rgba(12,16,41,.94),transparent);pointer-events:none;z-index:1;}
   .arc .thumb.tbd{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 42%,#141c40,#0a0f24 72%);position:relative;}
-  .arc .thumb.tbd .rn{font-family:var(--disp);font-size:42px;line-height:1;color:rgba(127,224,255,.16);letter-spacing:.04em;}
+  .arc .thumb.tbd .rn{font-family:var(--disp);font-size:52px;line-height:1;color:rgba(127,224,255,.16);letter-spacing:.04em;}
   .arc .thumb.tbd .tg{position:absolute;bottom:9px;left:0;right:0;text-align:center;font-family:var(--disp);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(154,166,200,.6);}
-  .arc .body{padding:14px 15px 16px;}
+  .arc .body{padding:20px 16px 20px;}
   .arc .yr{font-family:var(--disp);font-size:11px;letter-spacing:.1em;color:var(--cyan);}
   .arc .nm{font-family:var(--disp);font-size:15px;text-transform:uppercase;margin:6px 0 7px;color:var(--cream);line-height:1.05;}
   .arc .ds{font-size:12.5px;line-height:1.45;color:var(--muted);}
-  .arc .badge{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--disp);font-size:9px;letter-spacing:.14em;
-    text-transform:uppercase;padding:4px 9px;border-radius:999px;}
-  .arc.clip{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset;}
+  .arc .badge{position:absolute;top:-11px;left:16px;z-index:2;font-family:var(--disp);font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;padding:5px 11px;border-radius:999px;}
+  .arc.clip{border-color:rgba(24,182,240,.7);box-shadow:0 0 0 1px rgba(24,182,240,.28),0 0 20px rgba(24,182,240,.12);}
   .arc.clip .badge{background:var(--cyan);color:#04121b;}
-  .arc.next{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange) inset;}
+  .arc.next{border-color:rgba(241,90,34,.7);box-shadow:0 0 0 1px rgba(241,90,34,.28),0 0 20px rgba(241,90,34,.12);}
   .arc.next .badge{background:var(--orange);color:#1a0d04;}
   .arc.clip .nm{color:var(--cyan);}
   .arc.next .nm{color:var(--orange);}
@@ -345,27 +347,19 @@
     <p style="max-width:760px;">NOVALIS is the narrative foundation connecting every Foxako release: a five-arc science-fiction saga. The audience enters through its final era first, discovering the consequences before the causes, so the mystery leads. Each new release then rewinds to an earlier point and moves forward, answering the first chapter's questions one piece at a time.</p>
     <div class="timeline">
       <div class="arc pre">
-        <div class="badge">Prequel</div>
-        <div class="thumb tbd"><span class="rn">I</span><span class="tg">Narrative arc</span></div>
-        <div class="body"><div class="yr">2050-2130</div><div class="nm">The Creation</div><div class="ds">A sealed city is built around the promise of a nearly infinite source of energy.</div></div>
+        <div class="body"><div class="badge">Prequel</div><div class="yr">2050-2130</div><div class="nm">The Creation</div><div class="ds">A sealed city is built around the promise of a nearly infinite source of energy.</div></div>
       </div>
       <div class="arc next">
-        <div class="badge">Next release</div>
-        <div class="thumb"><img src="assets/city_of_peace.jpg" alt="City of Peace"></div>
-        <div class="body"><div class="yr">2130-2180</div><div class="nm">City of Peace</div><div class="ds">A protected megacity where humans and conscious machines begin to coexist.</div></div>
+        <div class="body"><div class="badge">Next release</div><div class="yr">2130-2180</div><div class="nm">City of Peace</div><div class="ds">A protected megacity where humans and conscious machines begin to coexist.</div></div>
       </div>
       <div class="arc">
-        <div class="thumb tbd"><span class="rn">III</span><span class="tg">Narrative arc</span></div>
         <div class="body"><div class="yr">2180-2226</div><div class="nm">The Shift</div><div class="ds">The Nomiras question their role, and the balance of the city begins to fracture.</div></div>
       </div>
       <div class="arc">
-        <div class="thumb tbd"><span class="rn">IV</span><span class="tg">Narrative arc</span></div>
         <div class="body"><div class="yr">2226-2227</div><div class="nm">The Last War</div><div class="ds">A rebellion and a chain reaction destroy the city and open the energy breach.</div></div>
       </div>
       <div class="arc clip">
-        <div class="badge">Chapter One</div>
-        <div class="thumb"><img src="assets/AmIAlive_coverart.png" alt="Post Novalis"></div>
-        <div class="body"><div class="yr">2302-&#8734;</div><div class="nm">Post Novalis</div><div class="ds">Seventy-five years later, the surviving Nomiras build a society among the ruins.</div></div>
+        <div class="body"><div class="badge">Chapter One</div><div class="yr">2302-&#8734;</div><div class="nm">Post Novalis</div><div class="ds">Seventy-five years later, the surviving Nomiras build a society among the ruins.</div></div>
       </div>
     </div>
     <details>
@@ -395,14 +389,13 @@
     <div class="subblock">
       <div class="kicker">Behind the scenes</div>
       <h3 style="font-family:var(--disp);font-size:20px;color:var(--cream);text-transform:uppercase;margin:6px 0 8px;">A hand-made production</h3>
-      <p style="max-width:740px;">Music composition, 3D world-building and live-action capture, all developed in-house.</p>
+      <p style="max-width:760px;">From music composition and storyboarding to 3D modeling and character animation, all developed in-house.</p>
       <div class="imgrow bts">
-        <div class="fr"><img class="zoomable" data-full="assets/IMG_5769.jpg" src="assets/IMG_5769.jpg" style="object-position:center 34%;" alt="Music composition"></div>
-        <div class="fr"><img class="zoomable" data-full="assets/3.png" src="assets/3.png" alt="3D world-building"></div>
-        <div class="fr"><img class="zoomable" data-full="assets/5.png" src="assets/5.png" style="object-position:70% center;" alt="3D world-building"></div>
-        <div class="fr"><img class="zoomable" data-full="assets/IMG_5833.jpg" src="assets/IMG_5833.jpg" style="object-position:center 26%;" alt="Live-action capture"></div>
+        <div class="fr"><img class="zoomable" data-full="assets/IMG_5769.jpg" src="assets/IMG_5769.jpg" style="object-position:center 34%;" alt="Music production"><span class="cap">Music production</span></div>
+        <div class="fr"><img class="zoomable" data-full="assets/TPI_IMD_2026_Storyboard_Frame12.png" src="assets/TPI_IMD_2026_Storyboard_Frame12.png" alt="Storyboarding"><span class="cap">Storyboarding</span></div>
+        <div class="fr"><img class="zoomable" data-full="assets/10.png" src="assets/10.png" style="object-position:56% center;" alt="3D modeling and animation"><span class="cap">3D modeling / animation</span></div>
+        <div class="fr"><img class="zoomable" data-full="assets/IMG_5837.jpg" src="assets/IMG_5837.jpg" style="object-position:center 26%;" alt="Characters animation"><span class="cap">Characters animation</span></div>
       </div>
-      <p class="caption">Studio composition, 3D production and live-action capture.</p>
     </div>
   </div>
 </section>
@@ -428,7 +421,7 @@
         </div>
       </div>
       <div class="card cover">
-        <div class="ph"><img class="zoomable" data-full="assets/wanderers.jpg" src="assets/wanderers.jpg" alt="Wanderers"></div>
+        <div class="ph"><img class="zoomable" data-full="assets/IMG_5709.jpg" src="assets/IMG_5709.jpg" alt="Wanderers"></div>
         <div class="cbody"><div class="cl">Single 03</div><div class="cn">Wanderers</div><p>Album lead single.</p>
           <div class="cs"><span class="chip prod">2D video in development</span></div>
           <div class="aplayer" data-src="assets/wanderers.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div>
@@ -440,10 +433,10 @@
       <h3 style="font-family:var(--disp);font-size:20px;color:var(--cream);text-transform:uppercase;margin:6px 0 8px;">The album &amp; its 2D animation</h3>
       <p style="max-width:740px;">The arc builds toward a full album. Its lead single, Wanderers, gets a 2D animated video, now in development. The first chapter was 3D; this one adds hand-drawn 2D, with Keynok on the look.</p>
       <div class="animrow">
-        <div class="fr"><img src="assets/anim1.jpg" alt="animatic frame"></div>
-        <div class="fr"><img src="assets/anim2.jpg" alt="animatic frame"></div>
-        <div class="fr"><img src="assets/anim3.jpg" alt="animatic frame"></div>
-        <div class="fr"><img src="assets/anim4.jpg" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/animaticframe1.png" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/animaticframe2.png" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/animaticframe3.png" alt="animatic frame"></div>
+        <div class="fr"><img src="assets/animaticframe4.png" alt="animatic frame"></div>
       </div>
       <p class="caption">Wanderers, early 2D animatic, work in progress.</p>
     </div>
