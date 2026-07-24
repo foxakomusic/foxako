@@ -162,46 +162,38 @@
   footer{padding:30px 0;border-top:1px solid var(--line);}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
   footer span{font-family:var(--margin);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-  /* hover polish */
-  .btn{transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .22s ease,background .22s ease,border-color .22s ease,color .22s ease;}
+  /* ---- affordances: clickable vs non-clickable ---- */
+  /* clickable: pointer/zoom cursor + hover feedback */
+  .btn{cursor:pointer;transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .22s ease,background .22s ease,border-color .22s ease,color .22s ease;}
   .btn:hover{color:var(--cream);transform:translateY(-2px);background:rgba(24,182,240,.1);box-shadow:0 10px 26px rgba(24,182,240,.18);}
   .btn:active{transform:translateY(0);}
   .btn.solid:hover{color:#1a0d04;border-color:var(--orange2);box-shadow:0 12px 28px rgba(241,90,34,.34);}
-  nav .links a{position:relative;transition:color .2s ease;}
+  nav .links a{position:relative;cursor:pointer;transition:color .2s ease;}
   nav .links a:not(.cta)::after{content:"";position:absolute;left:0;bottom:-7px;height:1.5px;width:0;background:var(--cyan);transition:width .25s cubic-bezier(.2,.7,.3,1);}
   nav .links a:not(.cta):hover::after{width:100%;}
   nav .cta{transition:transform .2s ease,box-shadow .2s ease,background .2s ease;}
   nav .cta:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(241,90,34,.3);}
-  .imgrow .fr{transition:border-color .25s ease,box-shadow .25s ease;}
-  .imgrow .fr img{transition:transform .55s cubic-bezier(.2,.7,.3,1),filter .35s ease;}
-  .imgrow .fr:hover{border-color:rgba(24,182,240,.55);box-shadow:0 10px 26px rgba(0,0,0,.3);}
-  .imgrow .fr:hover img{transform:scale(1.07);filter:brightness(1.08);}
-  .reltile{transition:border-color .25s ease,box-shadow .25s ease;}
-  .reltile img{opacity:.8;transition:transform .55s cubic-bezier(.2,.7,.3,1),opacity .3s ease,filter .3s ease;}
-  .reltile:hover{border-color:rgba(24,182,240,.55);box-shadow:0 12px 28px rgba(0,0,0,.35);}
-  .reltile:hover img{opacity:1;transform:scale(1.07);filter:brightness(1.06);}
-  .reltile:hover .rl{color:#fff;}
-  .card{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
-  .card:hover{transform:translateY(-4px);border-color:rgba(24,182,240,.5);box-shadow:0 16px 34px rgba(0,0,0,.4);}
-  .cover .ph img{transition:transform .55s cubic-bezier(.2,.7,.3,1),filter .35s ease;}
-  .card.cover:hover .ph img{transform:scale(1.06);filter:brightness(1.06);}
-  .arc{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
-  .arc .thumb img{transition:transform .55s cubic-bezier(.2,.7,.3,1),opacity .3s ease,filter .35s ease;}
-  .arc:hover{transform:translateY(-4px);}
-  .arc:hover .thumb img{transform:scale(1.06);opacity:1;filter:brightness(1.08);}
-  .arc .thumb.tbd .rn{transition:color .35s ease,transform .45s cubic-bezier(.2,.7,.3,1);}
-  .arc:hover .thumb.tbd .rn{color:rgba(127,224,255,.3);transform:scale(1.08);}
-  .gcell{transition:border-color .25s ease,transform .25s ease;}
-  .gcell:hover{border-color:rgba(24,182,240,.5);transform:translateY(-2px);}
-  .tag{transition:border-color .2s ease,color .2s ease;}
-  .tag:hover{border-color:var(--cyan);color:var(--cyan);}
-  .plist span{transition:border-color .2s ease,color .2s ease,transform .2s ease;}
-  .plist span:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px);}
+  .social a{cursor:pointer;}
   .social a:hover{transform:translateY(-2px);}
+  .brand{cursor:pointer;}
   .brand img{transition:opacity .2s ease;}
   .brand:hover img{opacity:.7;}
-  details summary{transition:color .2s ease;}
+  details summary{cursor:pointer;transition:color .2s ease;}
   details summary:hover{color:var(--cream);}
+  .apbtn,.apbar{cursor:pointer;}
+  .apbtn{transition:transform .18s ease,box-shadow .18s ease;}
+  .apbtn:hover{transform:scale(1.09);box-shadow:0 4px 14px rgba(241,90,34,.42);}
+  /* clickable images (open a larger view): zoom-in cursor + gentle feedback + cyan edge */
+  .zoomable{cursor:zoom-in;transition:transform .5s cubic-bezier(.2,.7,.3,1),filter .3s ease;}
+  .imgrow .fr{transition:border-color .25s ease;}
+  .imgrow .fr:hover{border-color:rgba(24,182,240,.6);}
+  .imgrow .fr:hover .zoomable{transform:scale(1.05);filter:brightness(1.08);}
+  .cover .ph:hover .zoomable{transform:scale(1.05);filter:brightness(1.08);}
+  /* non-clickable decorative: default cursor, stays calm (no lift, no zoom) */
+  .arc,.reltile,.gcell,.card,.tag,.chip,.plist span,.arc .thumb,.reltile .rl,.gcell .gl,.gcell .gv{cursor:default;}
+  .reltile img{opacity:.9;}
+  .reltile:hover img{transform:none;opacity:.9;filter:none;}
+  .arc .thumb img{opacity:.94;}
   @media(prefers-reduced-motion:reduce){*{transition:none !important;}}
   @media(max-width:760px){
     .grid,.contact-grid{grid-template-columns:1fr;}
