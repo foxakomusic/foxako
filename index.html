@@ -98,6 +98,15 @@
   .reltile .phv{position:absolute;left:0;right:0;top:0;bottom:36px;display:flex;align-items:center;justify-content:center;}
   .reltile .phv span{font-family:var(--disp);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(154,166,200,.55);border:1px solid rgba(127,224,255,.22);padding:6px 11px;border-radius:999px;}
   .relnote{margin-top:16px;}
+  .reltypes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+  .rtype{background:rgba(12,16,41,.5);border:1px solid var(--line);border-radius:6px;padding:18px 20px;}
+  .rtype h4{font-family:var(--disp);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:7px;}
+  .rtype p{font-size:13.5px;color:var(--muted);line-height:1.5;}
+  .reeldemo{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
+  .reeldemo .frame{width:230px;max-width:66%;aspect-ratio:9/16;border-radius:10px;border:1px solid var(--line);background:linear-gradient(150deg,#121a3c,#0a0f24 78%);display:flex;align-items:center;justify-content:center;}
+  .reeldemo .frame span{font-family:var(--disp);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(154,166,200,.55);border:1px solid rgba(127,224,255,.22);padding:6px 11px;border-radius:999px;}
+  .reeldemo .lab{font-size:12.5px;color:var(--muted);}
+  @media(max-width:760px){.reltypes{grid-template-columns:1fr;}}
   /* cards / covers (what's next) */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;}
   .card{background:rgba(12,16,41,.6);border:1px solid var(--line);border-radius:5px;padding:18px;}
@@ -326,8 +335,8 @@
     <div class="sec-head"><div class="kicker">The project</div><h2>Foxako <span class="o">in short</span></h2></div>
     <div class="grid top">
       <div class="stack">
-        <p>Foxako is a music-and-visual project created in French-speaking Switzerland by Bartekola and Keynok.</p>
-        <p>Bartekola develops the music, narrative direction and 3D animation. Keynok develops the illustrated identity and 2D visual language.</p>
+        <p>Foxako is a music-and-visual project from French-speaking Switzerland, created by the artist Foxako in collaboration with the illustrator Keynok.</p>
+        <p>Foxako develops the music, narrative direction and 3D animation. Keynok develops the illustrated identity and 2D visual language.</p>
       </div>
       <div class="stack">
         <p>Together, they create electronic music releases that exist as complete musical, visual and narrative chapters.</p>
@@ -379,11 +388,15 @@
     <div class="sec-head"><div class="kicker">Roll-out</div><h2>Built to <span class="o">unfold</span></h2></div>
     <p style="max-width:780px;">NOVALIS is designed to grow through music releases, animated chapters and short-form content. The first release will introduce the universe through the track and its film, followed by a steady stream of short-form vertical content built around four pillars.</p>
     <p style="max-width:780px;margin-top:12px;">The social campaign has not started yet because it is intended to unfold alongside the official launch of the project. The material already exists: it simply has not been publicly deployed.</p>
-    <div class="relgrid">
-      <div class="reltile ph"><div class="phv"><span>Preview soon</span></div><div class="rl">Hook / hand-made<span class="rsub">Nomira city sequences and Asha</span></div></div>
-      <div class="reltile ph"><div class="phv"><span>Preview soon</span></div><div class="rl">Atmospheric<span class="rsub">The scale of the world, contemplative</span></div></div>
-      <div class="reltile ph"><div class="phv"><span>Preview soon</span></div><div class="rl">Promotional<span class="rsub">Drives to the streaming platforms</span></div></div>
-      <div class="reltile ph"><div class="phv"><span>Preview soon</span></div><div class="rl">Behind the scenes<span class="rsub">3D production and composition</span></div></div>
+    <div class="reltypes">
+      <div class="rtype"><h4>Hook / hand-made</h4><p>Short, striking vertical clips of the Nomira city and Asha, made to catch the eye and show the hand-made craft behind the world.</p></div>
+      <div class="rtype"><h4>Atmospheric</h4><p>Slow, contemplative shots that let the scale and mood of NOVALIS breathe.</p></div>
+      <div class="rtype"><h4>Promotional</h4><p>Release-driven clips that point viewers straight to the music on the streaming platforms.</p></div>
+      <div class="rtype"><h4>Behind the scenes</h4><p>Making-of glimpses of the 3D production, music composition and world-building.</p></div>
+    </div>
+    <div class="reeldemo">
+      <div class="frame"><span>Preview soon</span></div>
+      <div class="lab">A first example reel is coming soon.</div>
     </div>
     <p class="small relnote">A full library of visuals, characters, locations and making-of material is ready to feed a launch across streaming, video and social platforms.</p>
     <div class="subblock">
@@ -407,14 +420,14 @@
     <p style="max-width:760px;">After Chapter One, the saga rewinds to the <b style="color:var(--cyan2)">City of Peace</b> arc, which opens with three singles building towards a full album. Each single carries its own cover by Keynok.</p>
     <div class="cards">
       <div class="card cover">
-        <div class="ph"><img class="zoomable" data-full="assets/CityOfPeace_v2.png" src="assets/CityOfPeace_v2.png" alt="City of Peace"></div>
+        <div class="ph"><img class="zoomable" data-full="assets/CityOfPeace_v3.jpg" src="assets/CityOfPeace_v3.jpg" alt="City of Peace"></div>
         <div class="cbody"><div class="cl">Single 01</div><div class="cn">City of Peace</div><p>Opens the arc. The flagship single.</p>
           <div class="cs"><span class="chip prod">In production</span></div>
           <div class="aplayer" data-src="assets/city_of_peace.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div>
         </div>
       </div>
       <div class="card cover">
-        <div class="ph"><img class="zoomable" data-full="assets/keynok.jpg" src="assets/keynok.jpg" style="object-position:center 18%;" alt="Pop the Bubble"></div>
+        <div class="ph"><img class="zoomable" data-full="assets/PopTheBubble_v2.jpg" src="assets/PopTheBubble_v2.jpg" style="object-position:center 18%;" alt="Pop the Bubble"></div>
         <div class="cbody"><div class="cl">Single 02</div><div class="cn">Pop the Bubble</div><p>Introduces the characters.</p>
           <div class="cs"><span class="chip prod">In production</span></div>
           <div class="aplayer" data-src="assets/pop_the_bubble.mp3"><button class="apbtn" aria-label="Play preview"></button><div class="apbar"><div class="apfill"></div></div><span class="aptime">0:00</span></div>
@@ -478,7 +491,7 @@
         </div>
       </div>
       <div>
-        <div class="cline"><div class="lab">Foxako · a duo</div><div class="val">Bartekola (music, narrative, 3D) · Keynok (illustration &amp; visuals)</div></div>
+        <div class="cline"><div class="lab">Foxako</div><div class="val">Music, narrative &amp; 3D animation · in collaboration with Keynok (illustration &amp; visuals)</div></div>
         <div class="cline"><div class="lab">Email</div><div class="val"><a href="mailto:foxako.music@gmail.com">foxako.music@gmail.com</a></div></div>
         <div class="cline"><div class="lab">Origin</div><div class="val">French-speaking Switzerland (Suisse romande)</div></div>
         <div class="cline"><div class="lab">Online</div>
