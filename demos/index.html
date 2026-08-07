@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Foxako - Demos | Label Preview</title>
+<meta name="description" content="Private listening page: unreleased Foxako demos from the NOVALIS universe.">
+<link rel="icon" type="image/jpeg" href="../assets/favicon.jpg">
+<link rel="apple-touch-icon" href="../assets/favicon.jpg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Foxako">
+<meta property="og:title" content="Foxako - Demos | Label Preview">
+<meta property="og:description" content="Private listening page: unreleased Foxako demos from the NOVALIS universe.">
+<meta property="og:image" content="https://project.foxako.com/assets/og_image.jpg">
+<meta property="og:url" content="https://project.foxako.com/demos/">
+<style>
+  @font-face{font-family:"Oddity Expanded Bold";src:url(../fonts/Oddity-ExpandedBold.ttf) format("truetype");font-weight:normal;}
+  @font-face{font-family:"Oddity Expanded Medium";src:url(../fonts/Oddity-ExpandedMedium.ttf) format("truetype");font-weight:normal;}
+  @font-face{font-family:"Campton Medium";src:url(../fonts/CamptonMedium.otf) format("opentype");font-weight:normal;}
+  :root{
+    --navy:#070a1c;--navy2:#0b1029;--panel:#10162f;
+    --orange:#f15a22;--cyan:#18b6f0;
+    --cream:#efe9dc;--muted:#9aa6c8;--line:rgba(127,224,255,.18);
+    --disp:"Oddity Expanded Bold",sans-serif;--margin:"Oddity Expanded Medium",sans-serif;--body:"Campton Medium",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--navy);color:var(--cream);font-family:var(--body);line-height:1.6;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px;}
+  .kicker{font-family:var(--disp);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);}
+  h1{font-family:var(--disp);font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--cream);margin:6px 0 10px;}
+  h1 .o{color:var(--orange);}
+  p{font-size:16px;color:#d7ddf0;}
+  .lead{font-size:18px;color:#fff;}
+  .small{font-size:13.5px;color:var(--muted);}
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(7,10,28,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;}
+  nav .brand img{height:18px;width:auto;display:block;transition:opacity .2s ease;}
+  nav .brand:hover img{opacity:.7;}
+  nav .back{font-family:var(--margin);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+    position:relative;transition:color .2s ease;}
+  nav .back:hover{color:var(--cyan);}
+  nav .back::after{content:"";position:absolute;left:0;bottom:-7px;height:1.5px;width:0;background:var(--cyan);transition:width .25s cubic-bezier(.2,.7,.3,1);}
+  nav .back:hover::after{width:100%;}
+  /* header */
+  header.top{padding:66px 0 26px;}
+  header.top .intro{max-width:720px;margin-top:12px;}
+  /* status notice */
+  .notice{border:1px solid var(--orange);background:rgba(241,90,34,.07);border-radius:6px;padding:20px 22px;margin-top:26px;}
+  .notice .nt{font-family:var(--disp);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:9px;}
+  .notice p+p{margin-top:9px;}
+  /* tracks */
+  section.list{padding:34px 0 70px;}
+  .trk{border-top:1px solid var(--line);padding:26px 0 0;margin-top:26px;}
+  .trk:first-child{border-top:0;margin-top:0;padding-top:6px;}
+  .thead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+  .tnum{font-family:var(--margin);font-size:11px;letter-spacing:.16em;color:var(--muted);}
+  .tname{font-family:var(--disp);font-size:20px;text-transform:uppercase;color:var(--cream);letter-spacing:.01em;}
+  .chip{font-family:var(--disp);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);display:inline-block;cursor:default;}
+  .chip.near{border-color:var(--cyan);color:var(--cyan);}
+  .chip.wip{border-color:var(--orange);color:var(--orange);}
+  .player{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#05060f;transition:border-color .25s ease;}
+  .player:hover{border-color:rgba(24,182,240,.45);}
+  .player iframe{display:block;width:100%;height:120px;border:0;}
+  .tnote{font-size:13.5px;color:var(--muted);margin-top:9px;}
+  /* footer */
+  .endnote{border:1px solid var(--line);border-radius:6px;background:rgba(12,16,41,.5);padding:18px 20px;margin-top:40px;}
+  .btn{font-family:var(--disp);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px;border-radius:3px;
+    border:1px solid var(--line);color:var(--cyan);background:rgba(11,16,41,.55);display:inline-block;cursor:pointer;
+    transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .22s ease,background .22s ease,border-color .22s ease,color .22s ease;}
+  .btn:hover{color:var(--cream);border-color:var(--cyan);transform:translateY(-2px);background:rgba(24,182,240,.1);box-shadow:0 10px 26px rgba(24,182,240,.18);}
+  .btn.solid{background:var(--orange);border-color:var(--orange);color:#1a0d04;}
+  .btn.solid:hover{color:#1a0d04;box-shadow:0 12px 28px rgba(241,90,34,.34);}
+  .btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;}
+  footer{padding:30px 0;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  footer span{font-family:var(--margin);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+  @media(prefers-reduced-motion:reduce){*{transition:none !important;}}
+  @media(max-width:760px){
+    .wrap{padding:0 20px;}
+    header.top{padding:44px 0 20px;}
+    h1{font-size:25px;}
+    .lead{font-size:16.5px;}
+    .tname{font-size:17px;}
+    .btnrow .btn{flex:1 1 auto;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Foxako"><img src="../assets/foxako_logo.svg" alt="Foxako"></a>
+    <a class="back" href="../">Back to the presentation</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Private listening</div>
+    <h1>Demos <span class="o">&amp; works in progress</span></h1>
+    <p class="lead intro">A selection of unreleased tracks from the NOVALIS universe, shared privately for listening. Please do not share these links.</p>
+
+    <div class="notice">
+      <div class="nt">Where these tracks stand</div>
+      <p>Everything on this page is a work in progress and will continue to evolve before release.</p>
+      <p><b style="color:var(--cream)">Tonight</b>, <b style="color:var(--cream)">City of Peace</b>, and <b style="color:var(--cream)">Wanderers</b> are the most advanced, with only a few refinements and details left. The remaining tracks are earlier demos, still in development.</p>
+      <p>On the main presentation, City of Peace, Wanderers, and Pop the Bubble appear as 30-second previews. Here, the first two are presented in full, while Pop the Bubble runs longer but remains unfinished.</p>
+      <p class="small">Additional demos leaning more towards French Touch are not published here and can be shared on request.</p>
+    </div>
+  </div>
+</header>
+
+<section class="list">
+  <div class="wrap">
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 01</span><h2 class="tname">Tonight</h2><span class="chip near">Close to final</span></div>
+      <div class="player">
+        <iframe title="Foxako - Tonight (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Ftonight-demo-1%3Fsecret_token%3Ds-zE217PT8y7V&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 02</span><h2 class="tname">New Feel</h2><span class="chip wip">In development</span></div>
+      <div class="player">
+        <iframe title="Foxako - New Feel (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Fnew-feel-demo-2%3Fsecret_token%3Ds-cKYX6ovCp0O&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 03</span><h2 class="tname">People Can Dance</h2><span class="chip wip">In development</span></div>
+      <div class="player">
+        <iframe title="Foxako - People Can Dance (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Fpeople-can-dance-demo-3%3Fsecret_token%3Ds-pJinn7DFeGB&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 04</span><h2 class="tname">Wanderers</h2><span class="chip near">Close to final</span></div>
+      <div class="player">
+        <iframe title="Foxako - Wanderers (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Fwanderers-demo-4%3Fsecret_token%3Ds-SgUVtYNVttX&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+      <p class="tnote">Complete version, well beyond the 30 second preview on the main page. Album lead single, with a 2D animated video in development.</p>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 05</span><h2 class="tname">City of Peace</h2><span class="chip near">Close to final</span></div>
+      <div class="player">
+        <iframe title="Foxako - City of Peace (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Flose-control-demo-5%3Fsecret_token%3Ds-wzFCmu7Tm25&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+      <p class="tnote">Complete version, well beyond the 30 second preview on the main page. Flagship single opening the City of Peace arc.</p>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 06</span><h2 class="tname">Pop the Bubble</h2><span class="chip wip">Extended demo, incomplete</span></div>
+      <div class="player">
+        <iframe title="Foxako - Pop the Bubble (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Fpop-the-bubble-demo-6%3Fsecret_token%3Ds-goFdhrpgI9K&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+      <p class="tnote">Much longer than the 30 second preview on the main page, but not yet complete.</p>
+    </article>
+
+    <article class="trk">
+      <div class="thead"><span class="tnum">Demo 07</span><h2 class="tname">Again</h2><span class="chip wip">In development</span></div>
+      <div class="player">
+        <iframe title="Foxako - Again (demo)" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
+          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ffoxako%2Fagain%3Fsecret_token%3Ds-Sv3tio0IL6m&color=%23f15a22&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    </article>
+
+    <div class="endnote">
+      <p class="small">These demos sit alongside <b style="color:var(--cream)">Am I Alive</b>, the completed first chapter of NOVALIS. Happy to send stems, longer versions or the French Touch oriented material on request.</p>
+      <div class="btnrow">
+        <a class="btn solid" href="mailto:foxako.music@gmail.com">Contact Foxako</a>
+        <a class="btn" href="../">Back to the presentation</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Foxako · NOVALIS</span>
+    <span>Private demos · please do not share</span>
+  </div>
+</footer>
+
+</body>
+</html>
